@@ -10,17 +10,16 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final TextEditingController fNameController = TextEditingController();
   final TextEditingController lNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneCodeController = TextEditingController(text: '+91');
+  final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
 
   DateTime? _selectedDate;
   bool acceptTerms = false;
-
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -32,11 +31,11 @@ class _RegisterPageState extends State<RegisterPage> {
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {
         _selectedDate = pickedDate;
-        dateController.text = '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+        dateController.text =
+        '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const login_page()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => const LoginPage()));
           },
           icon: const Icon(
             Icons.close,
@@ -63,7 +63,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
               Text(
                 'Register Account',
-                style: TextStyle(color: Colors.blue[900], fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                    color: Colors.blue[900],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -75,48 +78,47 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      controller: fNameController,
-                      decoration: InputDecoration(
-                        hintText: 'First name',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.purple, width: 2.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.purple, width: 2.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      controller: lNameController,
-                      decoration: InputDecoration(
-                        hintText: 'Last name',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.purple, width: 2.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: fNameController,
+                        decoration: InputDecoration(
+                          hintText: 'First name',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: lNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Last name',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
               const Row(
@@ -128,8 +130,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                width: 300,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -156,8 +158,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                width: 300,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: dateController,
                   readOnly: true,
@@ -188,24 +190,48 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: phoneController,
-                  decoration: InputDecoration(
-                    hintText: '+91 xxxxxxxxxx',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      child: TextFormField(
+                        controller: phoneCodeController,
+                        decoration: InputDecoration(
+                          labelText: 'Code',
+                          hintText: '+91',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your country code';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(color: Colors.purple, width: 2.0),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        controller: phoneNumberController,
+                        decoration: InputDecoration(
+                          labelText: 'Phone Number',
+                          hintText: '9723234512',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your phone number';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
+              const SizedBox(height: 10),
               const Row(
                 children: [
                   Padding(
@@ -215,12 +241,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                width: 300,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: pinController,
                   decoration: InputDecoration(
-                    hintText: '6 digit pin code',
+                    hintText: '624201',
                     hintStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -235,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   children: [
                     Checkbox(
@@ -250,10 +276,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: const Text(
+                  'Note: Students under the age of 18 are not permitted to register\n'
+                      'directly. Parents must register on their behalf and then share the\n'
+                      'link with their child to complete the registration process',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const OtpPage()));
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context) => const OtpPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
@@ -273,6 +309,28 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login Page'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to register page
+            Navigator.pop(context);
+          },
+          child: const Text('Back to Register'),
         ),
       ),
     );
